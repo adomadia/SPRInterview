@@ -1,0 +1,5 @@
+mvn exec:java -Dexec.mainClass="org.horse.track.main.HorseTrackMain"
+mvn test
+
+target/classes
+java org.horse.track.main.HorseTrackMain
