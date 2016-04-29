@@ -8,7 +8,7 @@ import org.horse.track.model.Horse;
 
 /***
  * HorseWinner Dao implementaiton.
- * @author Ashvin
+ * @author Ashvin Domadia
  *
  */
 public class HorseWinnerDaoImp implements ICRUDOperations<Integer, Horse>{

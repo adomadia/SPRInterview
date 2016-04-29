@@ -50,7 +50,6 @@ public class BillInventoryDaoImpl implements ICRUDOperations<Integer, BillInvent
 	@Override
 	public void trunc() {
 		db.getBillsInventoryMap().clear();
-		
 	}
 
 	/**

@@ -11,7 +11,7 @@ import org.horse.track.model.Horse;
  * @author Ashvin
  *
  */
-public final class CollectionDB {
+public class CollectionDB {
 	
 	private final static CollectionDB INSTANCE = new CollectionDB();
 

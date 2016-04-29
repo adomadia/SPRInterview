@@ -1,7 +1,2 @@
-META-INF\maven\HorseTrack\HorseTrack\pom.properties
-META-INF\MANIFEST.MF
-org\horse\track\exception\InvalidCommandException.class
-org\horse\track\support\CommandPrompt.class
-org\horse\track\util\StringUtils.class
 org\horse\track\main\HorseTrackMain.class
-META-INF\maven\HorseTrack\HorseTrack\pom.xml
+org\horse\track\util\StringUtils.class

@@ -39,23 +39,26 @@ public class WagerCommand implements ICommand, IValidator {
 	private IMessage out;
 	private boolean isValidated = false;
 
-	private final static HorseWinnerService winnerService = new HorseWinnerSeriveImpl(
-			new HorseWinnerDaoImp(CollectionDB.getInstance()));
+	private HorseWinnerService winnerService ; 
+	
+	private HorseService horseService;
 
-	private final static HorseService horseService = new HorseServiceImpl(new HorseDaoImpl(CollectionDB.getInstance()),
-			winnerService);
-
-	private final static BillInventoryService inventoryService = new BillInventoryServiceImpl(
-			new BillInventoryDaoImpl(CollectionDB.getInstance()));
-
+	private BillInventoryService inventoryService;
+	
 	/**
 	 * Constructor takes command-syntax as an argument.
 	 * 
 	 * @param syntax
 	 */
-	public WagerCommand(String syntax, IMessage out) {
+	public WagerCommand(String syntax, IMessage out, 
+			HorseWinnerService winnerService, HorseService horseService, 
+			BillInventoryService inventoryService) {
+	
 		this.syntax = syntax;
 		this.out = out;
+		this.winnerService = winnerService;
+		this.horseService = horseService;
+		this.inventoryService = inventoryService;
 	}
 
 	/**

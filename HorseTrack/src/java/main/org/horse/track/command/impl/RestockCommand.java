@@ -23,15 +23,15 @@ public class RestockCommand implements ICommand, IValidator{
 	
 	private final String syntax;
 	
-	private BillInventoryService inventoryService = new BillInventoryServiceImpl(
-				new BillInventoryDaoImpl(CollectionDB.getInstance()));
+	private BillInventoryService inventoryService;
 	
 	/**
 	 * Constructor takes command-syntax as an argument.
 	 * @param syntax
 	 */
-	public RestockCommand(String syntax) {
+	public RestockCommand(String syntax, BillInventoryService inventoryService) {
 		this.syntax = syntax.trim();
+		this.inventoryService = inventoryService;
 	}
 
 	

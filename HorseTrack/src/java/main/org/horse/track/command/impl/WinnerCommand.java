@@ -30,20 +30,18 @@ public class WinnerCommand implements ICommand, IValidator {
 	private boolean isValidated = false;
 	private final String syntax;
 	
-	private final static HorseWinnerService winnerService = 
-			new HorseWinnerSeriveImpl(new HorseWinnerDaoImp(CollectionDB.getInstance()));
-
-	private final static HorseService horseService = 
-			new HorseServiceImpl(new HorseDaoImpl(CollectionDB.getInstance()), winnerService);
-	
+	private HorseWinnerService winnerService ; 
+	private HorseService horseService; 
 	
 
 	/**
 	 * Constructor takes command-syntax as an argument.
 	 * @param syntax
 	 */
-	public WinnerCommand(String syntax) {
+	public WinnerCommand(String syntax, HorseWinnerService winnerService, HorseService horseService ) {
 			this.syntax = syntax;
+			this.winnerService = winnerService;
+			this.horseService = horseService;
 	}
 
 	
