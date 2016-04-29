@@ -1,4 +1,4 @@
-package org.horse.track.support;
+package org.horse.track.singleton;
 
 import java.util.Scanner;
 import java.util.StringTokenizer;
@@ -19,6 +19,9 @@ public class CommandPrompt implements IMessage{
 	
 	private final static CommandPrompt INSTANCE = new CommandPrompt(); 
 
+	private CommandPrompt(){
+		
+	}
 	
 	/**
 	 * Singleton implementation

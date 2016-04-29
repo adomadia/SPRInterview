@@ -64,7 +64,7 @@ public class BillInventoryServiceImpl implements BillInventoryService {
 		List<BillInventory> inventories = findAll();
 
 		for(BillInventory inventory : inventories){
-			builder.append("$" + inventory.getDenomination().getValue() + ", " + inventory.getInventory());
+			builder.append("$" + inventory.getDenomination().getValue() + "," + inventory.getInventory());
 			builder.append("\n");
 		}
 		return builder.toString();

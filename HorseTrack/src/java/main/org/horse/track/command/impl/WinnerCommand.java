@@ -12,6 +12,7 @@ import org.horse.track.service.HorseService;
 import org.horse.track.service.HorseWinnerService;
 import org.horse.track.service.impl.HorseServiceImpl;
 import org.horse.track.service.impl.HorseWinnerSeriveImpl;
+import org.horse.track.singleton.DisplayInventory;
 import org.horse.track.util.StringUtils;
 
 
@@ -81,6 +82,7 @@ public class WinnerCommand implements ICommand, IValidator {
 				throw new IllegalArgumentException("Invalid Horse Number: " + horseId);
 			}
 			winnerService.save(winnerHorse);
+			DisplayInventory.getInstance().display();
 		}
 		
 	}

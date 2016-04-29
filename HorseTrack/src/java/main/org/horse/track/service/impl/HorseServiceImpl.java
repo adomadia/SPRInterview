@@ -58,7 +58,7 @@ public class HorseServiceImpl implements HorseService{
 		builder.append("Horses:\n");
 		
 		for(Horse horse : horses){
-			builder.append(horse.getId() + ", " + horse.getName() + ", " );
+			builder.append(horse.getId() + "," + horse.getName() + "," + horse.getOdds() + ",");
 			builder.append((winnerService.getWinner().getId() == horse.getId())?"won":"lost");
 			builder.append("\n");
 		}

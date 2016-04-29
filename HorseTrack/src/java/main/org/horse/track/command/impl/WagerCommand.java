@@ -1,9 +1,8 @@
 package org.horse.track.command.impl;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.Stack;
 import java.util.StringTokenizer;
 import java.util.TreeMap;
@@ -23,6 +22,7 @@ import org.horse.track.service.HorseWinnerService;
 import org.horse.track.service.impl.BillInventoryServiceImpl;
 import org.horse.track.service.impl.HorseServiceImpl;
 import org.horse.track.service.impl.HorseWinnerSeriveImpl;
+import org.horse.track.singleton.DisplayInventory;
 import org.horse.track.util.StringUtils;
 
 
@@ -98,19 +98,54 @@ public class WagerCommand implements ICommand, IValidator{
 			}
 			
 			if(horseId != winnerService.getWinner().getId()){
-				out.write("No Payout: " + horseId + "\n");
+				out.write("No Payout: " + horse.getName() + "\n");
+				DisplayInventory.getInstance().display();
 			}
+			else{
 			
-			 Map<Integer, Integer> payout = calculatePayout( horse.getOdds(), betAmount);
-			 if(payout == null){
-				 System.out.println("Cant dispense");
-			 }
-			 else {
-				 System.out.println("Despensing");
-			 }
+				Map<Integer, Integer> payoutMap = calculatePayout( horse.getOdds(), betAmount);
+				
+				if(payoutMap != null){
+					Set<Integer> payOutKeys = payoutMap.keySet();
+					 
+					for(Integer key : payOutKeys){
+						Integer value = payoutMap.get(key);
+						BillInventory inventory = inventoryService.findById(key);
+						inventory.setInventory(inventory.getInventory() - value);
+						inventoryService.save(inventory);
+					}
+					printPayout(payoutMap, horse);
+				}
+				else {
+					out.write("Insufficient Funds: " + (horse.getOdds() * betAmount) + "\n");
+				}
+
+				DisplayInventory.getInstance().display();
+			}
+		}
+	}
+
+	private void printPayout(Map<Integer, Integer> payoutMap, Horse horse) {
+		
+		StringBuilder payoutMessage = new StringBuilder();
+		
+		Set<Integer> payOutKeys = payoutMap.keySet();
+		
+		Integer payoutAmount = 0;
+		
+		for(Integer key : payOutKeys){
+			Integer value = payoutMap.get(key);
+			payoutMessage.append("$" + key + "," + value + "\n");
+			payoutAmount += (key * value);
 		}
 		
+		
+		out.write("Payout: " + horse.getName() + ",$" + payoutAmount + "\n");
+		out.write("Dispensing: \n");
+		out.write(payoutMessage.toString());
+		
 	}
+
 
 	public Map<Integer, Integer> calculatePayout(Integer horseOdds, Integer betAmount){
 		
@@ -141,13 +176,10 @@ public class WagerCommand implements ICommand, IValidator{
 			dispensMap.put(inventory.getDenomination().getValue(), dispensBillsCount);
 		}
 		
-		
 		if(payoutAmount == 0){
 			return dispensMap;
 		}
 		
 		return null;
-		
 	}
-
 }

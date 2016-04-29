@@ -16,8 +16,9 @@ import org.horse.track.service.impl.BillInventoryServiceImpl;
 import org.horse.track.service.impl.DataStagingServiceImpl;
 import org.horse.track.service.impl.HorseServiceImpl;
 import org.horse.track.service.impl.HorseWinnerSeriveImpl;
-import org.horse.track.support.CommandProcessor;
-import org.horse.track.support.CommandPrompt;
+import org.horse.track.singleton.CommandProcessor;
+import org.horse.track.singleton.CommandPrompt;
+import org.horse.track.singleton.DisplayInventory;
 
 public class HorseTrackMain {
 	
@@ -30,7 +31,7 @@ public class HorseTrackMain {
 		final CommandPrompt shell = CommandPrompt.getInstance();
 		final CommandProcessor processor = CommandProcessor.getInstance();
 	
-		initialDisplay(shell);
+		DisplayInventory.getInstance().display();
 		
 		do{
 			try {
@@ -38,6 +39,7 @@ public class HorseTrackMain {
 				processor.process(cmd);
 			} catch (IllegalArgumentException ex) {
 				shell.write(ex.getMessage() + "\n");
+				
 			}
 		}while(!(cmd instanceof QuitCommand));
 	}
@@ -59,7 +61,7 @@ public class HorseTrackMain {
 		stagingService.initalize();
 	}
 
-	
+	/*
 	public static void initialDisplay(CommandPrompt shell){
 		
 		final CollectionDB db = CollectionDB.getInstance();
@@ -71,5 +73,5 @@ public class HorseTrackMain {
 		
 		shell.write(inventoryService.printInventory());
 		shell.write(horseService.printMenu());
-	}
+	}*/
 }
