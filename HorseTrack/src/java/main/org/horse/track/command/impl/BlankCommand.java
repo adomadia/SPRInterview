@@ -6,15 +6,13 @@ import org.horse.track.command.ICommand;
 import org.horse.track.command.IValidator;
 
 /**
- * 
+ * Represent blank input line command
+ * A BlankCommand is used to ignore blank input line.
  * @author Ashvin Domadia
- * TODO: write descritpion
- *
  */
 public class BlankCommand implements ICommand, IValidator  {
 
 	public final static String COMMAND_KEYWORD = "";
-	
 	private final String syntax;
 
 
@@ -28,7 +26,7 @@ public class BlankCommand implements ICommand, IValidator  {
 	
 	
 	/**
-	 * Method validates the enter command syntax.
+	 * Method validates the blank input line syntax.
 	 */
 	@Override
 	public void validate() {
@@ -40,11 +38,9 @@ public class BlankCommand implements ICommand, IValidator  {
 
 	/**
 	 * Empty implementation of an execute method.
-	 * Nothing to execute for this command.
 	 */
 	@Override
-	public void execute() {
-	
+	public void execute() { 
 		
 	}
 }

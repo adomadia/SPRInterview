@@ -8,6 +8,11 @@ import org.horse.track.dao.ICRUDOperations;
 import org.horse.track.model.BillInventory;
 import org.horse.track.service.BillInventoryService;
 
+/**
+ * 
+ * @author Ashvin Domadia
+ *
+ */
 public class BillInventoryServiceImpl implements BillInventoryService {
 	
 	ICRUDOperations<Integer, BillInventory> dao;

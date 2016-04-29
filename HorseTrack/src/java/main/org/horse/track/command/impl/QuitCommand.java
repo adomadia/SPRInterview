@@ -6,10 +6,9 @@ import org.horse.track.command.ICommand;
 import org.horse.track.command.IValidator;
 
 /**
- * 
+ * Represent as quit command
+ * A QuitCommand is used to exit out of the simulator by entering 'Q' or 'q'
  * @author Ashvin Domadia
- * TODO: write descritpion
- *
  */
 public class QuitCommand implements ICommand, IValidator {
 	

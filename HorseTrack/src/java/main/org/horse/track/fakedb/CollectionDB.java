@@ -6,6 +6,11 @@ import java.util.TreeMap;
 import org.horse.track.model.BillInventory;
 import org.horse.track.model.Horse;
 
+/**
+ * In memory collection base store to persist data 
+ * @author Ashvin
+ *
+ */
 public final class CollectionDB {
 	
 	private final static CollectionDB INSTANCE = new CollectionDB();
@@ -18,7 +23,7 @@ public final class CollectionDB {
 	
 	private Horse winnerHorse;
 	
-	//Prevent direct instanciation
+	//Prevent direct instantiation
 	private CollectionDB() {
 		
 	}
@@ -31,6 +36,10 @@ public final class CollectionDB {
 		return horseMap;
 	}
 	
+	/**
+	 * generate next sequencial number.
+	 * @return
+	 */
 	public Long getNextSequence(){
 		return ++sequence;
 	}
@@ -44,6 +53,10 @@ public final class CollectionDB {
 		this.winnerHorse = winnerHorse;
 	}
 	
+	/**
+	 * Single method
+	 * @return
+	 */
 	public static CollectionDB getInstance(){
 		return INSTANCE;
 	}

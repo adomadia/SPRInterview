@@ -4,13 +4,16 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import org.horse.track.command.impl.WinnerCommand;
 import org.horse.track.dao.ICRUDOperations;
-import org.horse.track.model.BillInventory;
 import org.horse.track.model.Horse;
 import org.horse.track.service.HorseService;
 import org.horse.track.service.HorseWinnerService;
 
+/**
+ * 
+ * @author Ashvin Domadia
+ *
+ */
 public class HorseServiceImpl implements HorseService{
 	
 	private ICRUDOperations<Long, Horse> dao;

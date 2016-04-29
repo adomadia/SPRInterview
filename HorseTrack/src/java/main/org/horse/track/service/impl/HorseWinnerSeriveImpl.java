@@ -4,6 +4,11 @@ import org.horse.track.dao.ICRUDOperations;
 import org.horse.track.model.Horse;
 import org.horse.track.service.HorseWinnerService;
 
+/**
+ * 
+ * @author Ashvin Domadia
+ *
+ */
 public class HorseWinnerSeriveImpl implements HorseWinnerService{
 	
 	private ICRUDOperations<Integer, Horse> horseWinnerDao;

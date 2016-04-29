@@ -10,9 +10,13 @@ import org.horse.track.command.impl.QuitCommand;
 import org.horse.track.command.impl.RestockCommand;
 import org.horse.track.command.impl.WagerCommand;
 import org.horse.track.command.impl.WinnerCommand;
-import org.horse.track.exception.InvalidCommandException;
 import org.horse.track.util.StringUtils;
 
+/**
+ * CommandPrompt performs read and write.
+ * @author Ashvin Domadia
+ *
+ */
 public class CommandPrompt implements IMessage{
 
 	private final Scanner scanner = new Scanner(System.in);
@@ -32,8 +36,8 @@ public class CommandPrompt implements IMessage{
 	}
 
 	/**
-	 * readCommand method reads a command from console and return command object.
-	 * this method thows IllegalArgumentException if a command is not supported.
+	 * Method reads a command from console and return command object.
+	 * Method thows IllegalArgumentException if a command is not supported.
 	 * 
 	 * @return ICommand
 	 */
@@ -84,7 +88,7 @@ public class CommandPrompt implements IMessage{
 	}
 	
 	/**
-	 * write method accepts message parameter and write message to console.
+	 * Method accepts message and write it to console.
 	 * @param message
 	 */
 	public void write(String message) {

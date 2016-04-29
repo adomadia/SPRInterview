@@ -11,6 +11,12 @@ import org.horse.track.service.impl.BillInventoryServiceImpl;
 import org.horse.track.service.impl.HorseServiceImpl;
 import org.horse.track.service.impl.HorseWinnerSeriveImpl;
 
+/**
+ * Singleton implementation
+ * Display Inventory info to screen.
+ * @author Ashvin Domadia
+ *
+ */
 public class DisplayInventory {
 
 	private final static DisplayInventory INSTANCE = new DisplayInventory();
@@ -20,6 +26,7 @@ public class DisplayInventory {
 	private final HorseWinnerService winnerService = new HorseWinnerSeriveImpl(new HorseWinnerDaoImp(db));
 	private final HorseService horseService = new HorseServiceImpl(new HorseDaoImpl(db), winnerService);
 	private final CommandPrompt shell = CommandPrompt.getInstance();
+	
 	
 	private DisplayInventory(){
 		
@@ -33,6 +40,9 @@ public class DisplayInventory {
 		return INSTANCE;
 	}
 	
+	/**
+	 * display horse and cash inventory.
+	 */
 	public void display(){
 		shell.write(inventoryService.printInventory());
 		shell.write(horseService.printMenu());

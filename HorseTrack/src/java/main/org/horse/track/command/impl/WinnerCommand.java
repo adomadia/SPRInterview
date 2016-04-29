@@ -17,10 +17,11 @@ import org.horse.track.util.StringUtils;
 
 
 /**
- * 
+ * Represent as Winner command
+ * A WinnerCommand is used to set the winner.
+ * Restock command key is 'W horse#' or 'w horse#'
+ 
  * @author Ashvin Domadia
- * TODO: write descritpion
- *
  */
 public class WinnerCommand implements ICommand, IValidator {
 	
@@ -71,6 +72,9 @@ public class WinnerCommand implements ICommand, IValidator {
 		isValidated = true;
 	}
 
+	/**
+	 * set the winner horse 
+	 */
 	@Override
 	public void execute() {
 		if(isValidated){
