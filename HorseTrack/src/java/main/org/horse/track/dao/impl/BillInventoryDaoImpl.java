@@ -36,4 +36,9 @@ public class BillInventoryDaoImpl implements ICRUDOperations<Integer, BillInvent
 		
 	}
 
+	@Override
+	public BillInventory findOne() {
+		throw new UnsupportedOperationException("Method not supported.");
+	}
+
 }

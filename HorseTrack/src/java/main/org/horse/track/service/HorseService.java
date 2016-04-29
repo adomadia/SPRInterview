@@ -13,5 +13,7 @@ public interface HorseService {
 	public void removeAll();
 	
 	public List<Horse> findAll();
+	
+	public String printMenu();
 
 }

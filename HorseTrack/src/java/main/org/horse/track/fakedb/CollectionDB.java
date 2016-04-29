@@ -9,12 +9,14 @@ import org.horse.track.model.Horse;
 public final class CollectionDB {
 	
 	private final static CollectionDB INSTANCE = new CollectionDB();
-	
+
 	private Long sequence = 0L;
 	
 	private Map<Long, Horse> horseMap = new TreeMap<Long, Horse>();
 	
 	private Map<Integer, BillInventory> billsInventoryMap = new TreeMap<Integer, BillInventory>();
+	
+	private Horse winnerHorse;
 	
 	//Prevent direct instanciation
 	private CollectionDB() {
@@ -33,7 +35,17 @@ public final class CollectionDB {
 		return ++sequence;
 	}
 	
+	
+	public Horse getWinnerHorse() {
+		return winnerHorse;
+	}
+	
+	public void setWinnerHorse(Horse winnerHorse) {
+		this.winnerHorse = winnerHorse;
+	}
+	
 	public static CollectionDB getInstance(){
 		return INSTANCE;
 	}
+
 }

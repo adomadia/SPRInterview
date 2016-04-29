@@ -37,5 +37,10 @@ public class HorseDaoImpl implements ICRUDOperations<Long, Horse>{
 	public Iterator<Horse> findAll() {
 		return db.getHorseMap().values().iterator();
 	}
+
+	@Override
+	public Horse findOne() {
+		throw new UnsupportedOperationException("Method not supported.");
+	}
 	
 }
