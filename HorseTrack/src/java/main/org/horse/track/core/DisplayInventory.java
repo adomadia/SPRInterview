@@ -1,4 +1,4 @@
-package org.horse.track.singleton;
+package org.horse.track.core;
 
 import org.horse.track.dao.impl.BillInventoryDaoImpl;
 import org.horse.track.dao.impl.HorseDaoImpl;

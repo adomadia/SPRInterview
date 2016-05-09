@@ -3,6 +3,9 @@ package org.horse.track.main;
 
 import org.horse.track.command.ICommand;
 import org.horse.track.command.impl.QuitCommand;
+import org.horse.track.core.CommandProcessor;
+import org.horse.track.core.CommandPrompt;
+import org.horse.track.core.DisplayInventory;
 import org.horse.track.dao.impl.BillInventoryDaoImpl;
 import org.horse.track.dao.impl.HorseDaoImpl;
 import org.horse.track.dao.impl.HorseWinnerDaoImp;
@@ -13,9 +16,6 @@ import org.horse.track.service.impl.BillInventoryServiceImpl;
 import org.horse.track.service.impl.DataStagingServiceImpl;
 import org.horse.track.service.impl.HorseServiceImpl;
 import org.horse.track.service.impl.HorseWinnerSeriveImpl;
-import org.horse.track.singleton.CommandProcessor;
-import org.horse.track.singleton.CommandPrompt;
-import org.horse.track.singleton.DisplayInventory;
 
 /***
  * Application to run the simulator.

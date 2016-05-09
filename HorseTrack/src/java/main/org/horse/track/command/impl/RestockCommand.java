@@ -4,11 +4,8 @@ import java.util.StringTokenizer;
 
 import org.horse.track.command.ICommand;
 import org.horse.track.command.IValidator;
-import org.horse.track.dao.impl.BillInventoryDaoImpl;
-import org.horse.track.fakedb.CollectionDB;
+import org.horse.track.core.DisplayInventory;
 import org.horse.track.service.BillInventoryService;
-import org.horse.track.service.impl.BillInventoryServiceImpl;
-import org.horse.track.singleton.DisplayInventory;
 
 /**
  * Represent as Restock command

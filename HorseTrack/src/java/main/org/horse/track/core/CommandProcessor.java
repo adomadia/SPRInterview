@@ -1,4 +1,4 @@
-package org.horse.track.singleton;
+package org.horse.track.core;
 
 import org.horse.track.command.ICommand;
 

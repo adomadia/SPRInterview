@@ -1,4 +1,4 @@
-package org.horse.track.singleton;
+package org.horse.track.core;
 
 import java.util.Scanner;
 import java.util.StringTokenizer;

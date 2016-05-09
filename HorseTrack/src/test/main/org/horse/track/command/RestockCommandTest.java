@@ -1,9 +1,9 @@
 package org.horse.track.command;
 
 import org.horse.track.command.impl.RestockCommand;
+import org.horse.track.core.CommandPrompt;
 import org.horse.track.service.BillInventoryService;
 import org.horse.track.service.impl.BillInventoryServiceImpl;
-import org.horse.track.singleton.CommandPrompt;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
