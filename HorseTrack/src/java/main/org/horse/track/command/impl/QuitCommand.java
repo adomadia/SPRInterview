@@ -2,15 +2,15 @@ package org.horse.track.command.impl;
 
 import java.util.StringTokenizer;
 
-import org.horse.track.command.ICommand;
-import org.horse.track.command.IValidator;
+import org.horse.track.command.ICommandExecutable;
+import org.horse.track.command.ICommandValidator;
 
 /**
  * Represent as quit command
  * A QuitCommand is used to exit out of the simulator by entering 'Q' or 'q'
  * @author Ashvin Domadia
  */
-public class QuitCommand implements ICommand, IValidator {
+public class QuitCommand implements ICommandExecutable, ICommandValidator {
 	
 	public final static String COMMAND_KEYWORD = "Q";
 	
@@ -40,7 +40,7 @@ public class QuitCommand implements ICommand, IValidator {
 	 * Nothing to execute for this command.
 	 */
 	@Override
-	public void execute() {
-
+	public boolean execute() {
+		return false;
 	}
 }

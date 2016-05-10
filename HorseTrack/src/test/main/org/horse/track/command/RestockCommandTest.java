@@ -1,7 +1,8 @@
 package org.horse.track.command;
 
 import org.horse.track.command.impl.RestockCommand;
-import org.horse.track.core.CommandPrompt;
+import org.horse.track.core.CommandParser;
+import org.horse.track.io.IWritable;
 import org.horse.track.service.BillInventoryService;
 import org.horse.track.service.impl.BillInventoryServiceImpl;
 import org.junit.Before;
@@ -12,12 +13,12 @@ public class RestockCommandTest {
 
 	private BillInventoryService inventoryServiceMock;
 	
-	private IMessage outMock;
+	private CommandParser outMock;
 	
 	@Before
 	public void setUp() throws Exception {
 	
-		outMock = Mockito.mock(CommandPrompt.class);
+		outMock = Mockito.mock(CommandParser.class);
 		
 		this.inventoryServiceMock = Mockito.mock(BillInventoryServiceImpl.class);
 	}

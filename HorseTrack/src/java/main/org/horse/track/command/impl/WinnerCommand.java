@@ -2,9 +2,8 @@ package org.horse.track.command.impl;
 
 import java.util.StringTokenizer;
 
-import org.horse.track.command.ICommand;
-import org.horse.track.command.IValidator;
-import org.horse.track.core.DisplayInventory;
+import org.horse.track.command.ICommandExecutable;
+import org.horse.track.command.ICommandValidator;
 import org.horse.track.model.Horse;
 import org.horse.track.service.HorseService;
 import org.horse.track.service.HorseWinnerService;
@@ -18,7 +17,7 @@ import org.horse.track.util.StringUtils;
  
  * @author Ashvin Domadia
  */
-public class WinnerCommand implements ICommand, IValidator {
+public class WinnerCommand implements ICommandExecutable, ICommandValidator {
 	
 	public final static String COMMAND_KEYWORD = "W";
 	
@@ -69,7 +68,7 @@ public class WinnerCommand implements ICommand, IValidator {
 	 * set the winner horse 
 	 */
 	@Override
-	public void execute() {
+	public boolean execute() {
 		if(isValidated){
 			StringTokenizer tokenizer = new StringTokenizer(syntax);
 			tokenizer.nextToken();
@@ -79,9 +78,8 @@ public class WinnerCommand implements ICommand, IValidator {
 				throw new IllegalArgumentException("Invalid Horse Number: " + horseId);
 			}
 			winnerService.save(winnerHorse);
-			DisplayInventory.getInstance().display();
 		}
-		
+		return true;
 	}
 
 	

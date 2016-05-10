@@ -2,9 +2,8 @@ package org.horse.track.command.impl;
 
 import java.util.StringTokenizer;
 
-import org.horse.track.command.ICommand;
-import org.horse.track.command.IValidator;
-import org.horse.track.core.DisplayInventory;
+import org.horse.track.command.ICommandExecutable;
+import org.horse.track.command.ICommandValidator;
 import org.horse.track.service.BillInventoryService;
 
 /**
@@ -14,7 +13,7 @@ import org.horse.track.service.BillInventoryService;
  
  * @author Ashvin Domadia
  */
-public class RestockCommand implements ICommand, IValidator{
+public class RestockCommand implements ICommandExecutable, ICommandValidator{
 
 	public final static String COMMAND_KEYWORD = "R";
 	
@@ -50,9 +49,9 @@ public class RestockCommand implements ICommand, IValidator{
 	 *  Display horse list and cash inventory.
 	 */
 	@Override
-	public void execute() {
+	public boolean execute() {
 		inventoryService.restock();
-		DisplayInventory.getInstance().display();
+		return true;
 	}
 
 }

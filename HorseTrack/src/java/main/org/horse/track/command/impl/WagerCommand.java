@@ -3,19 +3,19 @@ package org.horse.track.command.impl;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.Stack;
 import java.util.StringTokenizer;
 import java.util.TreeMap;
 
-import org.horse.track.command.ICommand;
-import org.horse.track.command.IMessage;
-import org.horse.track.command.IValidator;
-import org.horse.track.core.DisplayInventory;
+import org.horse.track.algorithm.impl.IterativePayoutCalculator;
+import org.horse.track.command.ICommandExecutable;
+import org.horse.track.command.ICommandValidator;
+import org.horse.track.io.IWritable;
 import org.horse.track.model.BillInventory;
 import org.horse.track.model.Horse;
 import org.horse.track.service.BillInventoryService;
 import org.horse.track.service.HorseService;
 import org.horse.track.service.HorseWinnerService;
+import org.horse.track.support.PayoutSupport;
 import org.horse.track.util.StringUtils;
 
 /**
@@ -26,10 +26,10 @@ import org.horse.track.util.StringUtils;
  * 
  * @author Ashvin Domadia
  */
-public class WagerCommand implements ICommand, IValidator {
+public class WagerCommand implements ICommandExecutable, ICommandValidator {
 
 	private final String syntax;
-	private IMessage out;
+	private IWritable out;
 	private boolean isValidated = false;
 
 	private HorseWinnerService winnerService ; 
@@ -38,12 +38,14 @@ public class WagerCommand implements ICommand, IValidator {
 
 	private BillInventoryService inventoryService;
 	
+	private PayoutSupport payoutSupport = new PayoutSupport(new IterativePayoutCalculator());
+	
 	/**
 	 * Constructor takes command-syntax as an argument.
 	 * 
 	 * @param syntax
 	 */
-	public WagerCommand(String syntax, IMessage out, 
+	public WagerCommand(String syntax, IWritable out, 
 			HorseWinnerService winnerService, HorseService horseService, 
 			BillInventoryService inventoryService) {
 	
@@ -86,7 +88,7 @@ public class WagerCommand implements ICommand, IValidator {
 	 * exact payout.
 	 */
 	@Override
-	public void execute() {
+	public boolean execute() {
 
 		if (isValidated) {
 
@@ -103,13 +105,15 @@ public class WagerCommand implements ICommand, IValidator {
 			//not a winner horse
 			if (horseId != winnerService.getWinner().getId()) {
 				out.write("No Payout: " + horse.getName() + "\n");
-				DisplayInventory.getInstance().display();
 			} 
 			else { //Winner horse 
 
-				Map<Integer, Integer> payoutMap = calculatePayout(horse.getOdds(), betAmount);
+				List<BillInventory> inventoryList = inventoryService.findAll();
+				Map<Integer, Integer> payoutMap = new TreeMap<Integer, Integer>();
+						
+				Integer remainingAmount = payoutSupport.calculatePayout(horse.getOdds()*betAmount, inventoryList, payoutMap);
 
-				if (payoutMap != null) {
+				if (remainingAmount == 0) {
 					Set<Integer> payOutKeys = payoutMap.keySet();
 
 					for (Integer key : payOutKeys) {
@@ -118,80 +122,12 @@ public class WagerCommand implements ICommand, IValidator {
 						inventory.setInventory(inventory.getInventory() - value);
 						inventoryService.save(inventory);
 					}
-					printPayout(payoutMap, horse);
+					payoutSupport.printPayout(payoutMap, horse, out);
 				} else {
 					out.write("Insufficient Funds: " + (horse.getOdds() * betAmount) + "\n");
 				}
-
-				DisplayInventory.getInstance().display();
 			}
 		}
-	}
-
-	/**
-	 * Display Payout message and dispensing inventory.
-	 * 
-	 * @param payoutMap
-	 * @param horse
-	 */
-	private void printPayout(Map<Integer, Integer> payoutMap, Horse horse) {
-
-		StringBuilder payoutMessage = new StringBuilder();
-
-		Set<Integer> payOutKeys = payoutMap.keySet();
-
-		Integer payoutAmount = 0;
-
-		for (Integer key : payOutKeys) {
-			Integer value = payoutMap.get(key);
-			payoutMessage.append("$" + key + "," + value + "\n");
-			payoutAmount += (key * value);
-		}
-
-		out.write("Payout: " + horse.getName() + ",$" + payoutAmount + "\n");
-		out.write("Dispensing: \n");
-		out.write(payoutMessage.toString());
-
-	}
-
-	/**
-	 * Calculate payout distribution.
-	 * @param horseOdds
-	 * @param betAmount
-	 * @return null if insufficient fund or payout distribution
-	 */
-	public Map<Integer, Integer> calculatePayout(Integer horseOdds, Integer betAmount) {
-
-		Integer payoutAmount = horseOdds * betAmount;
-		List<BillInventory> inventoryList = inventoryService.findAll();
-
-		Stack<BillInventory> billInventoryStack = new Stack<BillInventory>();
-
-		Map<Integer, Integer> dispensMap = new TreeMap<Integer, Integer>();
-
-		for (BillInventory inventory : inventoryList) {
-			billInventoryStack.push(inventory);
-		}
-
-		while (billInventoryStack.size() != 0) {
-			BillInventory inventory = billInventoryStack.pop();
-			Integer totalDenomBillsNeeded = payoutAmount / inventory.getDenomination().getValue();
-			Integer dispensBillsCount = 0;
-			if (inventory.getInventory() >= totalDenomBillsNeeded) {
-				dispensBillsCount = totalDenomBillsNeeded;
-
-			} else {
-				Integer billShort = inventory.getInventory() - totalDenomBillsNeeded;
-				dispensBillsCount = totalDenomBillsNeeded + billShort;
-			}
-			payoutAmount = payoutAmount - (dispensBillsCount * inventory.getDenomination().getValue());
-			dispensMap.put(inventory.getDenomination().getValue(), dispensBillsCount);
-		}
-
-		if (payoutAmount == 0) {
-			return dispensMap;
-		}
-
-		return null;
-	}
+		return true;
+	}	
 }

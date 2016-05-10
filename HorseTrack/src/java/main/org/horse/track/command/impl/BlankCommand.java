@@ -2,15 +2,15 @@ package org.horse.track.command.impl;
 
 import java.util.StringTokenizer;
 
-import org.horse.track.command.ICommand;
-import org.horse.track.command.IValidator;
+import org.horse.track.command.ICommandExecutable;
+import org.horse.track.command.ICommandValidator;
 
 /**
  * Represent blank input line command
  * A BlankCommand is used to ignore blank input line.
  * @author Ashvin Domadia
  */
-public class BlankCommand implements ICommand, IValidator  {
+public class BlankCommand implements ICommandExecutable, ICommandValidator  {
 
 	public final static String COMMAND_KEYWORD = "";
 	private final String syntax;
@@ -38,9 +38,10 @@ public class BlankCommand implements ICommand, IValidator  {
 
 	/**
 	 * Empty implementation of an execute method.
+	 * @return 
 	 */
 	@Override
-	public void execute() { 
-		
+	public boolean execute() { 
+		return false;
 	}
 }

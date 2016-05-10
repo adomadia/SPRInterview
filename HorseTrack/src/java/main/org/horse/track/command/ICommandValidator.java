@@ -6,8 +6,7 @@ package org.horse.track.command;
  * @author Ashvin Domadia
  * 
  */
-public interface IMessage {
-	
-	public void write(String message);
+public interface ICommandValidator {
+	public void validate();
 
 }

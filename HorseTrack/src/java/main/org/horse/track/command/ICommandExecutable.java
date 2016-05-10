@@ -6,7 +6,7 @@ package org.horse.track.command;
  * @author Ashvin Domadia
  * 
  */
-public interface ICommand {
-	public void execute();
+public interface ICommandExecutable {
+	public boolean execute();
 
 }
