@@ -1,6 +1,5 @@
 package org.horse.track.main;
 
-
 import org.horse.track.command.ICommandExecutable;
 import org.horse.track.command.impl.QuitCommand;
 import org.horse.track.core.CommandParser;
@@ -24,53 +23,55 @@ import org.horse.track.support.InventorySupport;
 
 /***
  * Application to run the simulator.
+ * 
  * @author Ashvin Domadia
  *
  */
 public class HorseTrackMain {
 	/**
 	 * main method to start simulator.
+	 * 
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		
-		final HorseWinnerService winnerService = 
-				new HorseWinnerSeriveImpl(new HorseWinnerDaoImp(CollectionDB.getInstance()));
-		final HorseService horseService =  
-				new HorseServiceImpl(new HorseDaoImpl(CollectionDB.getInstance()), winnerService);
+
+		final HorseWinnerService winnerService = new HorseWinnerSeriveImpl(
+				new HorseWinnerDaoImp(CollectionDB.getInstance()));
+		final HorseService horseService = new HorseServiceImpl(new HorseDaoImpl(CollectionDB.getInstance()),
+				winnerService);
 		final BillInventoryService inventoryService = new BillInventoryServiceImpl(
 				new BillInventoryDaoImpl(CollectionDB.getInstance()));
 
 		final IWritable consoleWriter = new ConsoleWriter();
-		final CommandFactory commandFactory = new CommandFactory(winnerService, horseService, inventoryService, consoleWriter);
+		final CommandFactory commandFactory = new CommandFactory(winnerService, horseService, inventoryService,
+				consoleWriter);
 		final CommandParser commandGenerator = new CommandParser(new ConsoleReader(), commandFactory);
 		final CommandProcessor processor = new CommandProcessor();
 		final InventorySupport inventorySupport = new InventorySupport(inventoryService, horseService, consoleWriter);
-		
+
 		ICommandExecutable cmd = null;
 
-		//Initial data setup.
+		// Initial data setup.
 		DataInitializer.initialSetup();
-	
-		//Display horse and cash inventory.
+
+		// Display horse and cash inventory.
 		inventorySupport.display();
-		
-		do{
+
+		do {
 			try {
 
-				//Read a command.
+				// Read a command.
 				cmd = commandGenerator.readCommand();
-				
-				//Process the command.
-				if(processor.process(cmd)){
+
+				// Process the command.
+				if (processor.process(cmd)) {
 					inventorySupport.display();
 				}
 			} catch (IllegalArgumentException ex) {
 				consoleWriter.write(ex.getMessage() + "\n");
-				
-			}
-		}while(!(cmd instanceof QuitCommand));
-	}
 
+			}
+		} while (!(cmd instanceof QuitCommand));
+	}
 
 }
